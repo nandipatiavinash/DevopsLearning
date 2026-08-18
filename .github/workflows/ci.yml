@@ -13,14 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check Git
-        run: git --version
-
       - name: Check Docker
         run: docker --version
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+      - name: Build Docker image
+        run: docker build -t devops-demo ./docker-demo
 
-      - name: Check Terraform
-        run: terraform --version
+      - name: List Docker images
+        run: docker images
