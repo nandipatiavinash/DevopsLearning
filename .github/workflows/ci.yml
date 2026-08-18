@@ -1,0 +1,23 @@
+name: DevOps CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Git
+        run: git --version
+
+      - name: Check Docker
+        run: docker --version
+
+      - name: Check Terraform
+        run: terraform --version
