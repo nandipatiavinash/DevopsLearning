@@ -1,4 +1,4 @@
-name: DevOps CI
+name: Docker CI
 
 on:
   push:
@@ -6,25 +6,21 @@ on:
       - main
 
 jobs:
-  test:
+  docker:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check Docker
-        run: docker --version
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t devops-demo ./docker-demo
+        run: docker build -t avinash879/dockerhub-demo:latest ./docker-demo
 
-      - name: Run Docker container
-        run: docker run -d -p 8080:80 --name devops-demo devops-demo
-
-      - name: Test application
-        run: curl --fail http://localhost:8080
-
-      - name: Stop container
-        if: always()
-        run: docker stop devops-demo
+      - name: Push Docker image
+        run: docker push avinash879/dockerhub-demo:latest
