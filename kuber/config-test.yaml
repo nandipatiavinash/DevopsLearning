@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-test
+
+spec:
+  containers:
+    - name: config-test
+      image: nginx:alpine
+
+      env:
+        # ConfigMap values
+        - name: APP_MODE
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: APP_MODE
+
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: DATABASE_HOST
+
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: DATABASE_PORT
+
+        # Secret values
+        - name: DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DATABASE_USER
+
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DATABASE_PASSWORD
+

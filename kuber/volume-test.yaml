@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: volume-test
+
+spec:
+  containers:
+    - name: volume-test
+      image: nginx:alpine
+
+      volumeMounts:
+        - name: app-data
+          mountPath: /data
+
+  volumes:
+    - name: app-data
+      emptyDir: {}

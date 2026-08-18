@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: pvc-test
+
+spec:
+  containers:
+    - name: pvc-test
+      image: nginx:alpine
+
+      volumeMounts:
+        - name: database-storage
+          mountPath: /data
+
+  volumes:
+    - name: database-storage
+      persistentVolumeClaim:
+        claimName: postgres-pvc
