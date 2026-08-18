@@ -19,5 +19,8 @@ jobs:
       - name: Check Docker
         run: docker --version
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
       - name: Check Terraform
         run: terraform --version
