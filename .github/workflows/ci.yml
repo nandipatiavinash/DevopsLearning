@@ -19,5 +19,12 @@ jobs:
       - name: Build Docker image
         run: docker build -t devops-demo ./docker-demo
 
-      - name: List Docker images
-        run: docker images
+      - name: Run Docker container
+        run: docker run -d -p 8080:80 --name devops-demo devops-demo
+
+      - name: Test application
+        run: curl --fail http://localhost:8080
+
+      - name: Stop container
+        if: always()
+        run: docker stop devops-demo
